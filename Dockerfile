@@ -1,19 +1,12 @@
+
 FROM ubuntu:latest
 
-RUN echo "mysql-server mysql-server/root_password password docker" | debconf-set-selections
-RUN echo "mysql-server mysql-server/root_password_again password docker" | debconf-set-selections
+RUN apt-get update &&\
+apt-get install -y wget unzip default-jre
+RUN wget http://dist.sonar.codehaus.org/sonarqube-5.1.zip
+RUN unzip sonarqube-5.1.zip
+RUN mv sonarqube-5.1 /opt/sonar
 
-#RUN /usr/bin/mysql_secure_installation
-RUN apt-get -y install mysql-server
-
-# Define mountable directories.
-VOLUME ["/etc/mysql", "/var/lib/mysql"]
-
-#Launch mysql after a reboot
-RUN /usr/sbin/update-rc.d mysql defaults
-
-CMD ["/usr/bin/tail","-f", "/dev/null"]
-
-RUN service mysql restart
-EXPOSE 3306
-EXPOSE 8080
+COPY sonar.properties /opt/sonar/conf/
+ENTRYPOINT ["/opt/sonar/bin/linux-x86-64/sonar.sh", "start"]
+EXPOSE 9000
