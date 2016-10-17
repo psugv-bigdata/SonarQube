@@ -20,4 +20,4 @@ CMD ["/opt/sonar/bin/linux-x86-64/sonar.sh", "start"]
 CMD while true; do sleep 1000; done
 
 #Port to connect to SonarQube
-EXPOSE 7228
+EXPOSE 4321
