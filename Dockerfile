@@ -20,7 +20,7 @@ RUN wget http://repo1.maven.org/maven2/org/codehaus/sonar/runner/sonar-runner-di
     mkdir /opt/sonar-runner && \
     mv /sonar-runner-2.4/* /opt/sonar-runner/ && \
     rm /sonar-runner-dist-2.4.zip && \
-    rm /sonar-runner-2.4
+    rm -R /sonar-runner-2.4
 
 ENV PATH /usr/local/sonar-runner-2.4/bin:$PATH
 
